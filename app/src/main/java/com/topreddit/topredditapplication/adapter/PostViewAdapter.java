@@ -1,23 +1,37 @@
 package com.topreddit.topredditapplication.adapter;
 
 import com.topreddit.topredditapplication.R;
-import com.topreddit.topredditapplication.data.DataDownloader;
 import com.topreddit.topredditapplication.data.DataParser;
 import com.topreddit.topredditapplication.model.Post;
-import java.util.ArrayList;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
+import android.util.TimeUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHolder> {
-    private static final String BASE_URL = "https://www.reddit.com/r/all/top.json";
-    private DataParser dataParser;
+    private List<Post> posts;
+    private Context context;
+
+    public PostViewAdapter(List<Post> posts, Context context) {
+        this.posts = posts;
+        this.context = context;
+    }
+
+    public PostViewAdapter() {
+    }
 
     @NonNull
     @Override
@@ -29,28 +43,25 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        List<Post> posts = getPosts(BASE_URL);
         holder.author.setText(posts.get(position).getAuthor());
         holder.title.setText(posts.get(position).getTitle());
-        holder.time.setText((int) posts.get(position).getPostTime());
-        holder.comments.setText(posts.get(position).getCommentsCount());
+        //holder.imageView.setImageDrawable(loadImageFromWebOperations(posts.get(position).getThumbnailUrl()));
+        int time = getTime(posts.get(position).getPostTime());
+        String tm = time + " hours ago";
+        holder.time.setText(tm);
+        String cm = posts.get(position).getCommentsCount() + " comments";
+        holder.comments.setText(cm);
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return posts.size();
     }
 
-    private List<Post> getPosts(String url) {
-        List<Post> posts;
-        try {
-            String json = new DataDownloader().execute(BASE_URL).get();
-            dataParser = new DataParser();
-            posts = dataParser.getPostsFromJSON(json);
-            return posts;
-        } catch (ExecutionException | InterruptedException e) {
-            throw new RuntimeException("Can't get posts in RecycleView adapter" , e);
-        }
+    public static int getTime(long postTime) {
+        long timeInSec = (System.currentTimeMillis()/1000) - postTime;
+        long hour = (timeInSec - (timeInSec % 3600)) / 3600;
+        return (int)hour;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
