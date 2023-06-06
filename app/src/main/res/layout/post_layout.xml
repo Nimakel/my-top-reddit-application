@@ -48,16 +48,4 @@
 
     </LinearLayout>
 
-    <Button
-            android:text="Button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/button"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="80dp"
-            android:layout_marginEnd="178dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="146dp" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
