@@ -3,11 +3,13 @@ package com.topreddit.topredditapplication.data;
 import com.topreddit.topredditapplication.model.Post;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class DataParser {
+    private static final String BASE_URL = "https://www.reddit.com/r/all/top.json";
     private static final String DATA = "data";
     private static final String CHILDREN = "children";
     private static final String SUBREDDIT_NAME = "subreddit_name_prefixed";
@@ -21,6 +23,17 @@ public class DataParser {
     private static final String REDDIT_VIDEO = "reddit_video";
     private static final String FALLBACK_URL = "fallback_url";
     private static final String IS_VIDEO = "is_video";
+
+    public List<Post> getPosts() {
+        List<Post> posts;
+        try {
+            String json = new DataDownloader().execute(BASE_URL).get();
+            posts = getPostsFromJSON(json);
+            return posts;
+        } catch (ExecutionException | InterruptedException e) {
+            throw new RuntimeException("Can't get posts in RecycleView adapter" , e);
+        }
+    }
 
     public List<Post> getPostsFromJSON(String json) {
         List<Post> posts = new ArrayList<>();
