@@ -8,15 +8,13 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import android.os.AsyncTask;
 
-public class DataDownloader extends AsyncTask<String[], Void, String> {
-    private static final String BASE_URL = "https://www.reddit.com/r/all/top.json";
-
+public class DataDownloader extends AsyncTask<String, Void, String> {
     @Override
-    protected String doInBackground(String[]... strings) {
+    protected String doInBackground(String... string) {
         HttpURLConnection connection = null;
         BufferedReader bufferedReader = null;
         try {
-            URL redditEndpoint = new URL(BASE_URL);
+            URL redditEndpoint = new URL(string[0]);
             connection = (HttpURLConnection) redditEndpoint.openConnection();
             connection.connect();
             InputStream stream = connection.getInputStream();
@@ -24,11 +22,22 @@ public class DataDownloader extends AsyncTask<String[], Void, String> {
             StringBuilder builder = new StringBuilder();
             String str = "";
             while ((str = bufferedReader.readLine()) != null) {
-                builder.append(str);
+                builder.append(str).append("/n");
             }
             return builder.toString();
         } catch (IOException e) {
             throw new RuntimeException(e);
+        } finally {
+            if (connection != null) {
+                connection.disconnect();
+            }
+            if (bufferedReader != null) {
+                try {
+                    bufferedReader.close();
+                } catch (IOException e) {
+                    new RuntimeException(e);
+                }
+            }
         }
     }
 }
