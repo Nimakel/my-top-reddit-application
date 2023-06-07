@@ -11,17 +11,23 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class MainActivity extends AppCompatActivity {
+    private RecyclerView recyclerView;
+    private LinearLayoutManager linearLayoutManager;
+    private DataParser dataParser;
+    private List<Post> posts;
+    private PostViewAdapter postViewAdapter;
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        RecyclerView recyclerView = findViewById(R.id.postRecycleView);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView = findViewById(R.id.postRecycleView);
+        linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(linearLayoutManager);
-        DataParser dataParser = new DataParser();
-        List<Post> posts = dataParser.getPosts();
-        PostViewAdapter postViewAdapter = new PostViewAdapter(posts, MainActivity.this);
+        dataParser = new DataParser();
+        posts = dataParser.getPosts();
+        postViewAdapter = new PostViewAdapter(posts, MainActivity.this);
         recyclerView.setAdapter(postViewAdapter);
     }
 }
