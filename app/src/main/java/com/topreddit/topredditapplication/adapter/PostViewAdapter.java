@@ -1,6 +1,7 @@
 package com.topreddit.topredditapplication.adapter;
 
 import com.topreddit.topredditapplication.R;
+import com.topreddit.topredditapplication.data.ImageLoader;
 import com.topreddit.topredditapplication.model.Post;
 import java.util.List;
 import android.content.Context;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHolder> {
     private List<Post> posts;
+    private ImageLoader imageLoader;
     private Context context;
 
     public PostViewAdapter(List<Post> posts, Context context) {
@@ -34,8 +36,15 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        imageLoader = new ImageLoader();
         holder.author.setText(posts.get(position).getAuthor());
         holder.title.setText(posts.get(position).getTitle());
+        if (!posts.get(position).isVideo()) {
+            holder.imageView.setImageBitmap(imageLoader.getBitmapFromUrl(posts.get(position).getUrl()));
+        } else {
+            holder.imageView.setImageBitmap(imageLoader.getBitmapFromUrl(posts.get(position).getThumbnailUrl()));
+        }
+        //
         //holder.imageView.setImageDrawable(loadImageFromWebOperations(posts.get(position).getThumbnailUrl()));
         int time = getTime(posts.get(position).getPostTime());
         String tm = time + " hours ago";
