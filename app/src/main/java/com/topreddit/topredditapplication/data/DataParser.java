@@ -28,14 +28,14 @@ public class DataParser {
         List<Post> posts;
         try {
             String json = new DataDownloader().execute(BASE_URL).get();
-            posts = getPostsFromJSON(json);
-            return posts;
+            posts = parseDataFromJSON(json);
         } catch (ExecutionException | InterruptedException e) {
-            throw new RuntimeException("Can't get posts in RecycleView adapter" , e);
+            throw new RuntimeException("Can't get posts from parser!" , e);
         }
+        return posts;
     }
 
-    public List<Post> getPostsFromJSON(String json) {
+    private List<Post> parseDataFromJSON(String json) {
         List<Post> posts = new ArrayList<>();
         try {
             JSONObject body = new JSONObject(json);
@@ -65,7 +65,7 @@ public class DataParser {
             }
             return posts;
         } catch (JSONException e) {
-            throw new RuntimeException("Can't get data!", e);
+            throw new RuntimeException("Can't parse data from JSON!", e);
         }
     }
 }
