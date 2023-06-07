@@ -44,7 +44,13 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
         imageLoader = new ImageLoader();
         holder.author.setText(posts.get(position).getAuthor());
         holder.title.setText(posts.get(position).getTitle());
-        holder.imageView.setImageBitmap(imageLoader.getBitmapFromUrl(posts.get(position).getUrl()));
+        if (posts.get(position).isVideo()) {
+            holder.imageView.setMaxWidth(posts.get(position).getThumbnailWidth());
+            holder.imageView.setMaxHeight(posts.get(position).getThumbnailHeight());
+            //holder.imageView.setImageBitmap(imageLoader.getBitmapFromUrl(posts.get(position).getVideoUrl())); //doesn't work correctly. 403 error in browser
+        } else {
+            holder.imageView.setImageBitmap(imageLoader.getBitmapFromUrl(posts.get(position).getUrl()));
+        }
         int time = getTime(posts.get(position).getPostTime());
         String tm = time + " hours ago";
         holder.time.setText(tm);
