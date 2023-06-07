@@ -53,7 +53,7 @@ public class DataParser {
                 post.setUrl(data.getString(IMAGE_URL));
                 if (!data.isNull(MEDIA)) {
                     JSONObject media = data.getJSONObject(MEDIA);
-                    if (data.has(REDDIT_VIDEO)) {
+                    if (data.has(IS_VIDEO)) {
                         JSONObject redditVideo = media.getJSONObject(REDDIT_VIDEO);
                         post.setVideoUrl(redditVideo.getString(FALLBACK_URL));
                         post.setVideo(data.getBoolean(IS_VIDEO));
