@@ -20,7 +20,6 @@ public class ImageActivity extends Activity {
         imageView = findViewById(R.id.imageView);
         saveButton = findViewById(R.id.save_button);
         returnButton = findViewById(R.id.return_button);
-
         returnButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
