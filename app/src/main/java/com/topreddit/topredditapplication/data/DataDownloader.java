@@ -26,7 +26,7 @@ public class DataDownloader extends AsyncTask<String, Void, String> {
             }
             return builder.toString();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Can't download data from URL!", e);
         } finally {
             if (connection != null) {
                 connection.disconnect();
@@ -35,7 +35,7 @@ public class DataDownloader extends AsyncTask<String, Void, String> {
                 try {
                     bufferedReader.close();
                 } catch (IOException e) {
-                    new RuntimeException(e);
+                    new RuntimeException("Can't close buffered reader! Something went wrong." , e);
                 }
             }
         }
