@@ -15,20 +15,20 @@
 
         <ImageView
                 android:id="@+id/image"
-                android:layout_width="350dp"
+                android:layout_width="370dp"
                 android:layout_height="300dp"
                 android:layout_margin="16dp" />
 
         <TextView
                 android:id="@+id/author"
-                android:layout_width="wrap_content"
+                android:layout_width="396dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
                 android:textColor="@color/author_color" />
 
         <TextView
                 android:id="@+id/title"
-                android:layout_width="wrap_content"
+                android:layout_width="389dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="9dp"
                 android:inputType="textMultiLine"
@@ -38,13 +38,13 @@
 
         <TextView
                 android:id="@+id/time"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="12sp" />
 
         <TextView
                 android:id="@+id/comments"
-                android:layout_width="wrap_content"
+                android:layout_width="381dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp" />
 
