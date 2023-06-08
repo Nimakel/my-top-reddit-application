@@ -1,15 +1,12 @@
 package com.topreddit.topredditapplication.adapter;
 
 import com.topreddit.topredditapplication.ImageActivity;
-import com.topreddit.topredditapplication.MainActivity;
 import com.topreddit.topredditapplication.R;
 import com.topreddit.topredditapplication.data.ImageLoader;
 import com.topreddit.topredditapplication.model.Post;
-import java.net.URI;
 import java.util.List;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,13 +19,11 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
     private List<Post> posts;
     private ImageLoader imageLoader;
     private Context context;
+    private static String imageUrl;
 
     public PostViewAdapter(List<Post> posts, Context context) {
         this.posts = posts;
         this.context = context;
-    }
-
-    public PostViewAdapter() {
     }
 
     @NonNull
@@ -50,6 +45,15 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
             //holder.imageView.setImageBitmap(imageLoader.getBitmapFromUrl(posts.get(position).getVideoUrl())); //doesn't work correctly. 403 error in browser
         } else {
             holder.imageView.setImageBitmap(imageLoader.getBitmapFromUrl(posts.get(position).getUrl()));
+            context = holder.itemView.getContext();
+            holder.imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, ImageActivity.class);
+                    setImage(posts.get(holder.getAdapterPosition()).getUrl());
+                    context.startActivity(intent);
+                }
+            });
         }
         int time = getTime(posts.get(position).getPostTime());
         String tm = time + " hours ago";
@@ -61,6 +65,14 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
     @Override
     public int getItemCount() {
         return posts.size();
+    }
+
+    private static void setImage(String imageUrlClicked) {
+        imageUrl = imageUrlClicked;
+    }
+
+    public static String getImage() {
+        return imageUrl;
     }
 
     public static int getTime(long postTime) {
@@ -79,14 +91,6 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
             time = (TextView) itemView.findViewById(R.id.time);
             comments = (TextView) itemView.findViewById(R.id.comments);
             imageView = (ImageView) itemView.findViewById(R.id.image);
-            context = itemView.getContext();
-            imageView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(context, ImageActivity.class);
-                    context.startActivity(intent);
-                }
-            });
         }
     }
 }
