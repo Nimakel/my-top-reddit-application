@@ -2,7 +2,7 @@ package com.topreddit.topredditapplication.adapter;
 
 import com.topreddit.topredditapplication.ImageActivity;
 import com.topreddit.topredditapplication.R;
-import com.topreddit.topredditapplication.data.ImageLoader;
+import com.topreddit.topredditapplication.service.ImageLoader;
 import com.topreddit.topredditapplication.model.Post;
 import java.util.List;
 import android.content.Context;

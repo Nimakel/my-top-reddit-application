@@ -1,5 +1,6 @@
-package com.topreddit.topredditapplication.data;
+package com.topreddit.topredditapplication.service;
 
+import com.topreddit.topredditapplication.data.ImageDownloader;
 import java.util.concurrent.ExecutionException;
 import android.graphics.Bitmap;
 

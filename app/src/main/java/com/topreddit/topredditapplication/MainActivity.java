@@ -1,7 +1,7 @@
 package com.topreddit.topredditapplication;
 
 import com.topreddit.topredditapplication.adapter.PostViewAdapter;
-import com.topreddit.topredditapplication.data.DataParser;
+import com.topreddit.topredditapplication.service.DataParser;
 import com.topreddit.topredditapplication.model.Post;
 import java.util.List;
 import android.annotation.SuppressLint;

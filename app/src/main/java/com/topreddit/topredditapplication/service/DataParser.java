@@ -1,5 +1,6 @@
-package com.topreddit.topredditapplication.data;
+package com.topreddit.topredditapplication.service;
 
+import com.topreddit.topredditapplication.data.DataDownloader;
 import com.topreddit.topredditapplication.model.Post;
 import java.util.ArrayList;
 import java.util.List;
