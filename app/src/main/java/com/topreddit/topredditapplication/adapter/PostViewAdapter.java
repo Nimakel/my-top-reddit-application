@@ -42,7 +42,7 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
         if (posts.get(position).isVideo()) {
             holder.imageView.setMaxWidth(posts.get(position).getThumbnailWidth());
             holder.imageView.setMaxHeight(posts.get(position).getThumbnailHeight());
-            //holder.imageView.setImageBitmap(imageLoader.getBitmapFromUrl(posts.get(position).getVideoUrl())); //doesn't work correctly. 403 error in browser
+            //holder.imageView.setImageBitmap(imageLoader.getBitmapFromUrl(posts.get(position).getThumbnail())); //doesn't work correctly. 403 error in browser
         } else {
             holder.imageView.setImageBitmap(imageLoader.getBitmapFromUrl(posts.get(position).getUrl()));
             context = holder.itemView.getContext();
